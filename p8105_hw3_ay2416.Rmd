@@ -5,3 +5,85 @@ date: "10/10/2018"
 output: github_document
 ---
 
+Setting some global options for my outputs
+
+```{r}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+```
+
+Loading the required libraries and data
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+data(brfss_smart2010)
+```
+
+Some data cleaning
+```{r}
+brfss_df = janitor::clean_names(dat = brfss_smart2010) %>% 
+  filter(topic == "Overall Health") %>% 
+  select(-(class:question), -sample_size, -(confidence_limit_low:geo_location)) %>% 
+  mutate(response = forcats::fct_relevel(response, c("Excellent", "Very good", "Good", "Fair", "Poor")))
+```
+
+States that were observed at 7 locations 
+
+```{r}
+brfss_df %>% 
+  filter(year == 2002) %>% 
+  group_by(locationabbr) %>% 
+  summarise( n = n())
+```
+
+```{r}
+brfss_df %>% 
+  group_by(locationabbr, year) %>% 
+  summarise( n = n()) %>% 
+  ggplot(aes(x = year, y = n, color = locationabbr)) +
+  geom_line() +
+  theme(legend.position = "bottom") +
+  labs(
+    title = "Spagetti plot",
+    x = "Year",
+    y = "Number of locations observed",
+    caption = "BRFSS 2010 data"
+  ) 
+```
+
+```{r}
+brfss_df %>% 
+  filter(year %in% c(2002, 2006, 2010) & locationabbr == "NY") %>% 
+  spread(key = response, value = data_value) %>% 
+  janitor::clean_names() %>% 
+  group_by(locationabbr, year) %>% 
+  summarise( n = n(),
+             mean = mean(excellent),
+             sd = sd(excellent)) %>% 
+  knitr::kable()
+```
+
+For each year and state, I'm computing the average proportion in each response category 
+and taking the average across locations in a state. Then making five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
+
+```{r}
+brfss_df %>% 
+  spread(key = response, value = data_value) %>% 
+  janitor::clean_names() %>% 
+  group_by(locationabbr, year) %>% 
+  summarise( n = n(),
+             mean_excellent = mean(excellent, na.rm = TRUE),
+             mean_verygood = mean(very_good, na.rm = TRUE),
+             mean_good = mean(good, na.rm = TRUE),
+             mean_fair = mean(fair, na.rm = TRUE),
+             mean_poor = mean(poor, na.rm = TRUE)) %>% 
+  gather(key = mean_variable, value = mean_value, mean_excellent:mean_poor) %>% 
+  ggplot(aes(x = year, y = mean_value, color = locationabbr)) +
+  geom_line() +
+  facet_grid(~mean_variable) 
+```
+
