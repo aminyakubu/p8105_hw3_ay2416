@@ -36,8 +36,10 @@ States that were observed at 7 locations
 ```{r}
 brfss_df %>% 
   filter(year == 2002) %>% 
-  group_by(locationabbr) %>% 
-  summarise( n = n())
+  group_by(locationabbr) %>%
+  distinct(locationdesc) %>% 
+  summarise(n = n()) %>% 
+  filter(n == 7)
 ```
 
 ```{r}
@@ -119,9 +121,8 @@ instacart %>%
   mutate(aisle = tools::toTitleCase(aisle)) %>% 
   ggplot(aes(x = reorder(aisle, -number), y = number, fill = aisle)) +
   geom_col() +
-  theme(axis.text.x = element_text(angle = 80, hjust = 1)) +
-  theme(legend.position = "none") +
-  theme(text = element_text(size = 8)) +
+  theme(axis.text.x = element_text(angle = 80, hjust = 1, size = 8),
+        legend.position = "none") +
   labs(
     title = "Frequency distribution of number of order per aisle",
     x = "Aisle",
