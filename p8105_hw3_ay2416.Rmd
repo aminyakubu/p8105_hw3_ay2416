@@ -208,18 +208,17 @@ noaa_df %>%
 Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
 
 ```{r}
-scatter = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
+my_scatter = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
   geom_point(aes())
 
-noaa_df %>% 
+my_boxes = noaa_df %>% 
   filter(snow > 0 & snow < 100) %>% 
   ggplot(aes(x = year, y = snow, fill = year)) +
   geom_boxplot(alpha = 0.3) +
   theme(legend.position = "none", 
         axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
 
-
-density + scatter 
+my_scatter / my_boxes
 ```
 
 
