@@ -173,6 +173,11 @@ noaa_df = ny_noaa %>%
          quarter = quarters(date, abbreviate = FALSE),
          tmax = as.numeric(tmax))
 
+```
+
+Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
+
+```{r}
 noaa_df %>% 
   group_by(id, year, month) %>% 
   summarize(n = n(),
@@ -181,16 +186,41 @@ noaa_df %>%
   filter(month %in% c("Jan", "Jul")) %>% 
   ggplot(aes(x = year, y = mean, color = id)) +
   facet_grid(~month) + 
-  geom_boxplot() +
+  geom_point() +
   theme(legend.position = "none", 
         axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) +
   viridis::scale_color_viridis(
     name = "Location", 
     discrete = TRUE) 
-
 ```
 
+```{r}
+noaa_df %>% 
+  filter(month %in% c("Jan", "Jul")) %>% 
+  ggplot(aes(x = year, y = tmax, color = year)) +
+  facet_grid(~month) +
+  geom_boxplot() +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
+```
+```
 
+Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
+
+```{r}
+scatter = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
+  geom_point(aes())
+
+noaa_df %>% 
+  filter(snow > 0 & snow < 100) %>% 
+  ggplot(aes(x = year, y = snow, fill = year)) +
+  geom_boxplot(alpha = 0.3) +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
+
+
+density + scatter 
+```
 
 
 
