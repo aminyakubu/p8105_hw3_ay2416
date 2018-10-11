@@ -47,6 +47,7 @@ brfss_df %>%
 
 ```{r}
 brfss_df %>% 
+  distinct(locationabbr, locationdesc, year) %>% 
   group_by(locationabbr, year) %>% 
   summarise(number = n()) %>% 
   ggplot(aes(x = year, y = number, color = locationabbr)) +
@@ -211,7 +212,8 @@ Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a
 ```{r}
 ggplot(noaa_df, aes(x = tmin, y = tmax, color = id)) +
   geom_point(aes()) +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
 
 my_boxes = noaa_df %>% 
   filter(snow > 0 & snow < 100) %>% 
