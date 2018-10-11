@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Problem 1
 Loading the required libraries and data
 
 ```{r}
@@ -39,14 +40,15 @@ brfss_df %>%
   group_by(locationabbr) %>%
   distinct(locationdesc) %>% 
   summarise(n = n()) %>% 
-  filter(n == 7)
+  filter(n == 7) %>% 
+  knitr::kable()
 ```
 
 ```{r}
 brfss_df %>% 
   group_by(locationabbr, year) %>% 
-  summarise( n = n()) %>% 
-  ggplot(aes(x = year, y = n, color = locationabbr)) +
+  summarise(number = n()) %>% 
+  ggplot(aes(x = year, y = number, color = locationabbr)) +
   geom_line() +
   theme(legend.position = "bottom") +
   labs(
@@ -89,7 +91,7 @@ brfss_df %>%
   facet_grid(~mean_variable) 
 ```
 
-##Question 2
+##Problem 2
 
 Loading instacart dataset
 
@@ -108,6 +110,8 @@ instacart %>%
 instacart %>% 
   group_by(aisle_id, aisle) %>% 
   summarise(number = n()) %>% 
+  ungroup() %>% 
+  top_n(5, number) %>% 
   arrange(desc(number))
 ```
 
@@ -152,5 +156,80 @@ instacart %>%
   group_by(order_dow, product_name) %>% 
   summarise(mean_hour = mean(order_hour_of_day))
 ```
+
+## Problem 3
+
+```{r}
+data("ny_noaa")
+```
+
+Cleaning the data
+
+```{r}
+noaa_df = ny_noaa %>% 
+  mutate(month = months.Date(date, abbreviate = TRUE),
+         day = chron::days(date),
+         year = chron::years(date),
+         quarter = quarters(date, abbreviate = FALSE),
+         tmax = as.numeric(tmax))
+
+noaa_df %>% 
+  group_by(id, year, month) %>% 
+  summarize(n = n(),
+            sum = sum(tmax, na.rm = TRUE),
+            mean = mean(tmax, na.rm = TRUE)) %>% 
+  filter(month %in% c("Jan", "Jul")) %>% 
+  ggplot(aes(x = year, y = mean, color = id)) +
+  facet_grid(~month) + 
+  geom_boxplot() +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) +
+  viridis::scale_color_viridis(
+    name = "Location", 
+    discrete = TRUE) 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
