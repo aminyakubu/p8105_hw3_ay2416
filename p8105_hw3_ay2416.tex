@@ -1,0 +1,642 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Homework 3},
+            pdfauthor={Amin Yakubu},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Homework 3}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Amin Yakubu}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{10/10/2018}
+
+
+\begin{document}
+\maketitle
+
+Loading the required libraries
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages ----------------------------------------------------------------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## √ ggplot2 3.0.0     √ purrr   0.2.5
+## √ tibble  1.4.2     √ dplyr   0.7.6
+## √ tidyr   0.8.1     √ stringr 1.3.1
+## √ readr   1.1.1     √ forcats 0.3.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts -------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(p8105.datasets)}
+\KeywordTok{library}\NormalTok{(patchwork)}
+\KeywordTok{library}\NormalTok{(ggthemes)}
+\KeywordTok{library}\NormalTok{(hexbin)}
+\end{Highlighting}
+\end{Shaded}
+
+Setting some global options for my outputs
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}
+  \DataTypeTok{fig.width =} \DecValTok{6}\NormalTok{,}
+  \DataTypeTok{fig.asp =}\NormalTok{ .}\DecValTok{6}\NormalTok{,}
+  \DataTypeTok{out.width =} \StringTok{"90%"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(brfss_smart2010)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Problem 1}\label{problem-1}
+
+Some data cleaning
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{brfss_df =}\StringTok{ }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{clean_names}\NormalTok{(}\DataTypeTok{dat =}\NormalTok{ brfss_smart2010) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(topic }\OperatorTok{==}\StringTok{ "Overall Health"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{(class}\OperatorTok{:}\NormalTok{question), }\OperatorTok{-}\NormalTok{sample_size, }\OperatorTok{-}\NormalTok{(confidence_limit_low}\OperatorTok{:}\NormalTok{geo_location)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{response =}\NormalTok{ forcats}\OperatorTok{::}\KeywordTok{fct_relevel}\NormalTok{(response, }\KeywordTok{c}\NormalTok{(}\StringTok{"Excellent"}\NormalTok{, }\StringTok{"Very good"}\NormalTok{, }\StringTok{"Good"}\NormalTok{, }\StringTok{"Fair"}\NormalTok{, }\StringTok{"Poor"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+States that were observed at 7 locations
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{brfss_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{==}\StringTok{ }\DecValTok{2002}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(locationabbr) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{distinct}\NormalTok{(locationdesc) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(n }\OperatorTok{==}\StringTok{ }\DecValTok{7}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+locationabbr & n\tabularnewline
+\midrule
+\endhead
+CT & 7\tabularnewline
+FL & 7\tabularnewline
+NC & 7\tabularnewline
+\bottomrule
+\end{longtable}
+
+In 2002, the states of CT, FL, NC were observed at 7 locations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{brfss_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{distinct}\NormalTok{(locationabbr, locationdesc, year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(locationabbr, year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{number =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ number, }\DataTypeTok{color =}\NormalTok{ locationabbr)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Spagetti plot"}\NormalTok{,}
+    \DataTypeTok{x =} \StringTok{"Year"}\NormalTok{,}
+    \DataTypeTok{y =} \StringTok{"Number of locations observed"}\NormalTok{,}
+    \DataTypeTok{caption =} \StringTok{"BRFSS 2010 data"}
+\NormalTok{  ) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.9\linewidth]{p8105_hw3_ay2416_files/figure-latex/unnamed-chunk-6-1}
+
+The code below shows a ``spaghetti plot'' that shows the number of
+locations in each state from 2002 to 2010. We see that there was a
+sudden increase in the number of locations for one of the states. The
+number of locations for majority of the states remained stable.
+
+Making a table showing, for the years 2002, 2006, and 2010, the mean and
+standard deviation of the proportion of ``Excellent'' responses across
+locations in NY State.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{brfss_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2002}\NormalTok{, }\DecValTok{2006}\NormalTok{, }\DecValTok{2010}\NormalTok{) }\OperatorTok{&}\StringTok{ }\NormalTok{locationabbr }\OperatorTok{==}\StringTok{ "NY"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{spread}\NormalTok{(}\DataTypeTok{key =}\NormalTok{ response, }\DataTypeTok{value =}\NormalTok{ data_value) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{clean_names}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(locationabbr, year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{( }\DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+             \DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(excellent),}
+             \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(excellent)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\toprule
+locationabbr & year & n & mean & sd\tabularnewline
+\midrule
+\endhead
+NY & 2002 & 5 & 24.04000 & 4.486424\tabularnewline
+NY & 2006 & 6 & 22.53333 & 4.000833\tabularnewline
+NY & 2010 & 9 & 22.70000 & 3.567212\tabularnewline
+\bottomrule
+\end{longtable}
+
+In the table, we see that the mean for proportion of excellent for the
+2006 and 2010 are very similar and worse than 2002. The standard
+deviation are not very different for the years of 2002 and 2006.
+
+For each year and state, I'm computing the average proportion in each
+response category and taking the average across locations in a state.
+Then making five-panel plot that shows, for each response category
+separately, the distribution of these state-level averages over time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{brfss_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{spread}\NormalTok{(}\DataTypeTok{key =}\NormalTok{ response, }\DataTypeTok{value =}\NormalTok{ data_value) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{clean_names}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(locationabbr, year) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{( }\DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+             \DataTypeTok{mean_excellent =} \KeywordTok{mean}\NormalTok{(excellent, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+             \DataTypeTok{mean_verygood =} \KeywordTok{mean}\NormalTok{(very_good, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+             \DataTypeTok{mean_good =} \KeywordTok{mean}\NormalTok{(good, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+             \DataTypeTok{mean_fair =} \KeywordTok{mean}\NormalTok{(fair, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+             \DataTypeTok{mean_poor =} \KeywordTok{mean}\NormalTok{(poor, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{gather}\NormalTok{(}\DataTypeTok{key =}\NormalTok{ mean_variable, }\DataTypeTok{value =}\NormalTok{ mean_value, mean_excellent}\OperatorTok{:}\NormalTok{mean_poor) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ mean_value, }\DataTypeTok{color =}\NormalTok{ locationabbr)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(}\OperatorTok{~}\NormalTok{mean_variable) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.9\linewidth]{p8105_hw3_ay2416_files/figure-latex/unnamed-chunk-8-1}
+
+From the spagetti plot, we see that across the years, the highest mean
+is for the proportion of very good. The lowest mean is for the
+proportion of poor.
+
+\subsection{Problem 2}\label{problem-2}
+
+Loading instacart dataset
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"instacart"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subparagraph{Short description of the
+dataset}\label{short-description-of-the-dataset}
+
+The dataset contains 1384617 observations and 15 variables. The variable
+order\_id is a unique identifier of the orders that have been made. We
+see that there are 131209 unique orders. Variables department\_name,
+product\_name, and aisle have their corresponding unique identifiers.
+There are variables that describe time as well. order\_dow represents
+the day of the week the order was made and the order\_hour\_of\_day
+represents the time the hour the day. There are 131209 unique customers.
+
+\paragraph{Finding the total number of aisles there are, and which
+aisles most items ordered
+from}\label{finding-the-total-number-of-aisles-there-are-and-which-aisles-most-items-ordered-from}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instacart }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{distinct}\NormalTok{(aisle_id) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{count}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##       n
+##   <int>
+## 1   134
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instacart }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(aisle_id, aisle) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{number =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{top_n}\NormalTok{(}\DecValTok{5}\NormalTok{, number) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(number)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rlr@{}}
+\toprule
+aisle\_id & aisle & number\tabularnewline
+\midrule
+\endhead
+83 & fresh vegetables & 150609\tabularnewline
+24 & fresh fruits & 150473\tabularnewline
+123 & packaged vegetables fruits & 78493\tabularnewline
+120 & yogurt & 55240\tabularnewline
+21 & packaged cheese & 41699\tabularnewline
+\bottomrule
+\end{longtable}
+
+We see that there are 134 aisles. In the table above, we see that the
+top five most popular aisles with the top being fresh vegetables aisles.
+
+Here, I'm making a plot to show the number of items ordered in each
+aisle.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instacart }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(aisle_id, aisle) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{number =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(number)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{aisle =}\NormalTok{ tools}\OperatorTok{::}\KeywordTok{toTitleCase}\NormalTok{(aisle)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{reorder}\NormalTok{(aisle, }\OperatorTok{-}\NormalTok{number), }\DataTypeTok{y =}\NormalTok{ number, }\DataTypeTok{fill =}\NormalTok{ aisle)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_col}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{80}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{8}\NormalTok{),}
+        \DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Frequency distribution of number of order per aisle"}\NormalTok{,}
+    \DataTypeTok{x =} \StringTok{"Aisle"}\NormalTok{,}
+    \DataTypeTok{y =} \StringTok{"Number of orders"}\NormalTok{,}
+    \DataTypeTok{caption =} \StringTok{"Data from instacart June, 2017"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.9\linewidth]{p8105_hw3_ay2416_files/figure-latex/unnamed-chunk-11-1}
+
+Again from the plot we see that fresh vegetables aisle is where the most
+orders come from.
+
+I'm making a table to show the most popular item in aisles ``baking
+ingredients'', ``dog food care'', and ``packaged vegetables fruits''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instacart }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(aisle_id, aisle,product_id, product_name) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{( aisle }\OperatorTok{==}\StringTok{ "baking ingredients"} \OperatorTok{|}\StringTok{ }\NormalTok{aisle }\OperatorTok{==}\StringTok{ "dog food care"} \OperatorTok{|}\StringTok{ }\NormalTok{aisle }\OperatorTok{==}\StringTok{ "packaged vegetables fruits"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(aisle, product_name) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{number =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{top_n}\NormalTok{(}\DecValTok{1}\NormalTok{, number) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(number)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}llr@{}}
+\toprule
+aisle & product\_name & number\tabularnewline
+\midrule
+\endhead
+packaged vegetables fruits & Organic Baby Spinach & 9784\tabularnewline
+baking ingredients & Light Brown Sugar & 499\tabularnewline
+dog food care & Snack Sticks Chicken \& Rice Recipe Dog Treats &
+30\tabularnewline
+\bottomrule
+\end{longtable}
+
+The table show the top items for each of those aisles.
+
+Next, I am making a table showing the mean hour of the day at which Pink
+Lady Apples and Coffee Ice Cream are ordered on each day of the week;
+format this table for human readers (i.e.~produce a 2 x 7 table).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instacart }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(product_name }\OperatorTok{==}\StringTok{ "Pink Lady Apples"}\NormalTok{ ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order_dow, product_name) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_hour =} \KeywordTok{mean}\NormalTok{(order_hour_of_day)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{spread}\NormalTok{(}\DataTypeTok{key =}\NormalTok{ product_name, }\DataTypeTok{value =}\NormalTok{ mean_hour) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rr@{}}
+\toprule
+order\_dow & Pink Lady Apples\tabularnewline
+\midrule
+\endhead
+0 & 13.44118\tabularnewline
+1 & 11.36000\tabularnewline
+2 & 11.70213\tabularnewline
+3 & 14.25000\tabularnewline
+4 & 11.55172\tabularnewline
+5 & 12.78431\tabularnewline
+6 & 11.93750\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{instacart }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(product_name }\OperatorTok{==}\StringTok{ "Coffee Ice Cream"}\NormalTok{ ) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(order_dow, product_name) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{mean_hour =} \KeywordTok{mean}\NormalTok{(order_hour_of_day)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{spread}\NormalTok{(}\DataTypeTok{key =}\NormalTok{ product_name, }\DataTypeTok{value =}\NormalTok{ mean_hour) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}rr@{}}
+\toprule
+order\_dow & Coffee Ice Cream\tabularnewline
+\midrule
+\endhead
+0 & 13.77419\tabularnewline
+1 & 14.31579\tabularnewline
+2 & 15.38095\tabularnewline
+3 & 15.31818\tabularnewline
+4 & 15.21739\tabularnewline
+5 & 12.26316\tabularnewline
+6 & 13.83333\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{Problem 3}\label{problem-3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"ny_noaa"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Cleaning the data. Also, since temperature, precipitation, and snowfall
+are given in 10th of their units, we will just divide by 10 to have
+appropriate units. I'm creating the day, year, month variables as well.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{noaa_df =}\StringTok{ }\NormalTok{ny_noaa }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{month =} \KeywordTok{months.Date}\NormalTok{(date, }\DataTypeTok{abbreviate =} \OtherTok{TRUE}\NormalTok{),}
+         \DataTypeTok{day =}\NormalTok{ chron}\OperatorTok{::}\KeywordTok{days}\NormalTok{(date),}
+         \DataTypeTok{year =}\NormalTok{ chron}\OperatorTok{::}\KeywordTok{years}\NormalTok{(date),}
+         \DataTypeTok{tmax =}\NormalTok{ (}\KeywordTok{as.numeric}\NormalTok{(tmax))}\OperatorTok{/}\DecValTok{10}\NormalTok{,}
+         \DataTypeTok{tmin =}\NormalTok{ (}\KeywordTok{as.numeric}\NormalTok{(tmin))}\OperatorTok{/}\DecValTok{10}\NormalTok{,}
+         \DataTypeTok{prcp =}\NormalTok{ prcp}\OperatorTok{/}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The dataset contains 2595176 observations and 10 variables. The dataset
+has variables that contain information on precipitation (prcp), maximum
+and minimum temperature (tmax and tmin) and snow fall(snow) and snow
+depth (snwd). There are 747 unique stations recording various weather
+information from 1981 to 2010.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{noaa_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(snow) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{number =} \KeywordTok{n}\NormalTok{()) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(number))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 282 x 2
+##     snow  number
+##    <int>   <int>
+##  1     0 2008508
+##  2    NA  381221
+##  3    25   31022
+##  4    13   23095
+##  5    51   18274
+##  6    76   10173
+##  7     8    9962
+##  8     5    9748
+##  9    38    9197
+## 10     3    8790
+## # ... with 272 more rows
+\end{verbatim}
+
+For snowfall, the most common observed values are 0 and NA. This is
+because it doesn't snow on majority of the days in a year and also there
+might be stations that aren't recording snowfall because their
+geographic location may not have snow fall at all.
+
+Making a two-panel plot showing the average max temperature in January
+and in July in each station across years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{noaa_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(id, year, month) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{(),}
+            \DataTypeTok{sum =} \KeywordTok{sum}\NormalTok{(tmax, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+            \DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(tmax, }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(month }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Jan"}\NormalTok{, }\StringTok{"Jul"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ mean, }\DataTypeTok{color =}\NormalTok{ id)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(}\OperatorTok{~}\NormalTok{month) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{, }
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{80}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{8}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\NormalTok{viridis}\OperatorTok{::}\KeywordTok{scale_color_viridis}\NormalTok{(}
+    \DataTypeTok{name =} \StringTok{"Location"}\NormalTok{, }
+    \DataTypeTok{discrete =} \OtherTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 5970 rows containing missing values (geom_point).
+\end{verbatim}
+
+\includegraphics[width=0.9\linewidth]{p8105_hw3_ay2416_files/figure-latex/unnamed-chunk-17-1}
+
+Looking at the general structure, we see that there are higher
+temperatures in July as compared to January, as we would expect. There
+are a few outliers in some years.
+
+The plot below show the average temperature for all stations over the
+years for January and July.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{noaa_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(month }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Jan"}\NormalTok{, }\StringTok{"Jul"}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ tmax, }\DataTypeTok{color =}\NormalTok{ year)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(}\OperatorTok{~}\NormalTok{month) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{, }
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{80}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 190331 rows containing non-finite values (stat_boxplot).
+\end{verbatim}
+
+\includegraphics[width=0.9\linewidth]{p8105_hw3_ay2416_files/figure-latex/unnamed-chunk-18-1}
+
+I'm making a two-panel plot showing (i) tmax vs tmin for the full
+dataset (note that a scatterplot may not be the best option); and (ii)
+make a plot showing the distribution of snowfall values greater than 0
+and less than 100 separately by year.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_hex =}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(noaa_df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ tmin, }\DataTypeTok{y =}\NormalTok{ tmax)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hex}\NormalTok{(}\KeywordTok{aes}\NormalTok{()) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"left"}\NormalTok{)}
+        
+\NormalTok{my_boxes =}\StringTok{ }\NormalTok{noaa_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(snow }\OperatorTok{>}\StringTok{ }\DecValTok{0} \OperatorTok{&}\StringTok{ }\NormalTok{snow }\OperatorTok{<}\StringTok{ }\DecValTok{100}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ year, }\DataTypeTok{y =}\NormalTok{ snow, }\DataTypeTok{fill =}\NormalTok{ year)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{, }
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{80}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{8}\NormalTok{))}
+
+\NormalTok{my_hex }\OperatorTok{/}\StringTok{ }\NormalTok{my_boxes}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 1136276 rows containing non-finite values (stat_binhex).
+\end{verbatim}
+
+\includegraphics[width=0.9\linewidth]{p8105_hw3_ay2416_files/figure-latex/unnamed-chunk-19-1}
+
+The hexagonal heat map show the distribution (count) of the pairs of
+tmax and tmin. From the box plot, we see that there are more variability
+in snowfall in the last ten years compared to first ten years. Also
+there are a lot more outliers in the last ten years.
+
+
+\end{document}
