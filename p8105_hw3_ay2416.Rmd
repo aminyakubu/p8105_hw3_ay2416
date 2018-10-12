@@ -122,7 +122,7 @@ data("instacart")
 
 ##### Short description of the dataset
 
-The dataset contains `r nrow(instacart)` observations and `r ncol(instacart)` variables. The variable order_id is a unique identifier of the orders that have been made. We see that there are `r nrow(distinct(instacart, order_id))` unique orders. Variables department_name, product_name, and aisle have their corresponding unique identifiers. There are variables that describe time as well. order_dow represents the day of the week the order was made and the order_hour_of_day represents the time the hour the day. There are `r nrow(distinct(instacard, user_id))` unique customers. 
+The dataset contains `r nrow(instacart)` observations and `r ncol(instacart)` variables. The variable order_id is a unique identifier of the orders that have been made. We see that there are `r nrow(distinct(instacart, order_id))` unique orders. Variables department_name, product_name, and aisle have their corresponding unique identifiers. There are variables that describe time as well. order_dow represents the day of the week the order was made and the order_hour_of_day represents the time the hour the day. There are `r nrow(distinct(instacart, user_id))` unique customers. 
 
 #### Finding the total number of aisles there are, and which aisles most items ordered from
 
