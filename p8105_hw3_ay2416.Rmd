@@ -230,7 +230,7 @@ noaa_df %>%
 
 For snowfall, the most common observed values are 0 and NA. This is because it doesn't snow on majority of the days in a year and also there might be stations that aren't recording snowfall because their geographic location may not have snow fall at all.
 
-Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
+Making a two-panel plot showing the average max temperature in January and in July in each station across years. 
 
 ```{r}
 noaa_df %>% 
@@ -249,6 +249,9 @@ noaa_df %>%
     discrete = TRUE) 
 ```
 
+Looking at the general structure, we see that there are higher temperatures in July as compared to January, as we would expect. There are a few outliers in some years. 
+
+The plot below show the average temperature for all stations over the years for January and July. 
 ```{r}
 noaa_df %>% 
   filter(month %in% c("Jan", "Jul")) %>% 
@@ -258,16 +261,15 @@ noaa_df %>%
   theme(legend.position = "none", 
         axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
 ```
-```
 
-Make a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
+
+I'm making a two-panel plot showing (i) tmax vs tmin for the full dataset (note that a scatterplot may not be the best option); and (ii) make a plot showing the distribution of snowfall values greater than 0 and less than 100 separately by year.
 
 ```{r}
-ggplot(noaa_df, aes(x = tmin, y = tmax, color = id)) +
-  geom_point(aes()) +
-  theme(legend.position = "none",
-        axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
-
+my_hex = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
+  geom_hex(aes()) +
+  theme(legend.position = "left")
+        
 my_boxes = noaa_df %>% 
   filter(snow > 0 & snow < 100) %>% 
   ggplot(aes(x = year, y = snow, fill = year)) +
@@ -275,8 +277,9 @@ my_boxes = noaa_df %>%
   theme(legend.position = "none", 
         axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
 
-my_scatter / my_boxes
+my_hex / my_boxes
 ```
+
 
 
 
