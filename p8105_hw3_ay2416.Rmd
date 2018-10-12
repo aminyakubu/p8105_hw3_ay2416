@@ -12,6 +12,7 @@ library(tidyverse)
 library(p8105.datasets)
 library(patchwork)
 library(ggthemes)
+library(hexbin)
 ```
 
 Setting some global options for my outputs
@@ -204,19 +205,30 @@ instacart %>%
 data("ny_noaa")
 ```
 
-Cleaning the data
+Cleaning the data. Also, since temperature, precipitation, and snowfall are given in 10th of their units, we will just divide by 10 to have appropriate units. I'm creating the day, year, month variables as well.
 
 ```{r}
 noaa_df = ny_noaa %>% 
   mutate(month = months.Date(date, abbreviate = TRUE),
          day = chron::days(date),
          year = chron::years(date),
-         quarter = quarters(date, abbreviate = FALSE),
-         tmax = as.numeric(tmax))
-
+         tmax = (as.numeric(tmax))/10,
+         tmin = (as.numeric(tmin))/10,
+         prcp = prcp/10)
+    
 ```
 
-To that end, write a short description of the dataset, noting the size and structure of the data, describing some key variables, and indicating the extent to which missing data is an issue. Then, do or answer the following (commenting on the results of each):
+The dataset contains `r nrow(noaa_df)` observations and `r ncol(noaa_df)` variables. The dataset has variables that contain information on precipitation (prcp), maximum and minimum temperature (tmax and tmin) and snow fall(snow) and snow depth (snwd). There are `r nrow(distinct(noaa_df, id))` unique stations recording various weather information from 1981 to 2010.
+
+
+```{r}
+noaa_df %>% 
+  group_by(snow) %>% 
+  summarise(number = n()) %>% 
+  arrange(desc(number))
+```
+
+For snowfall, the most common observed values are 0 and NA. This is because it doesn't snow on majority of the days in a year and also there might be stations that aren't recording snowfall because their geographic location may not have snow fall at all.
 
 Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
 
