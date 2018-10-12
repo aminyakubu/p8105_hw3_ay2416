@@ -185,17 +185,10 @@ ordered on each day of the week; format this table for human readers (i.e. produ
 
 ```{r}
 instacart %>% 
-  filter(product_name == "Pink Lady Apples" ) %>% 
+  filter(product_name == "Pink Lady Apples" | product_name == "Coffee Ice Cream" ) %>% 
   group_by(order_dow, product_name) %>% 
   summarise(mean_hour = mean(order_hour_of_day)) %>% 
-  spread(key = product_name, value = mean_hour) %>% 
-  knitr::kable()
-
-instacart %>% 
-  filter(product_name == "Coffee Ice Cream" ) %>% 
-  group_by(order_dow, product_name) %>% 
-  summarise(mean_hour = mean(order_hour_of_day)) %>% 
-  spread(key = product_name, value = mean_hour) %>% 
+  spread(key = order_dow, value = mean_hour) %>% 
   knitr::kable()
 ```
 
@@ -282,19 +275,6 @@ my_hex / my_boxes
 
 The hexagonal heat map show the distribution (count) of the pairs of tmax and tmin.
 From the box plot, we see that there are more variability in snowfall in the last ten years compared to first ten years. Also there are a lot more outliers in the last ten years. 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
