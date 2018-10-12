@@ -280,9 +280,8 @@ my_boxes = noaa_df %>%
 my_hex / my_boxes
 ```
 
-
-
-
+The hexagonal heat map show the distribution (count) of the pairs of tmax and tmin.
+From the box plot, we see that there are more variability in snowfall in the last ten years compared to first ten years. Also there are a lot more outliers in the last ten years. 
 
 
 
