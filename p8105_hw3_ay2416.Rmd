@@ -5,6 +5,15 @@ date: "10/10/2018"
 output: github_document
 ---
 
+Loading the required libraries
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+library(patchwork)
+library(ggthemes)
+```
+
 Setting some global options for my outputs
 
 ```{r}
@@ -15,17 +24,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Problem 1
-Loading the required libraries and data
 
 ```{r}
-library(tidyverse)
-library(p8105.datasets)
-library(patchwork)
 data(brfss_smart2010)
 ```
 
+## Problem 1
+
 Some data cleaning
+
 ```{r}
 brfss_df = janitor::clean_names(dat = brfss_smart2010) %>% 
   filter(topic == "Overall Health") %>% 
@@ -45,6 +52,8 @@ brfss_df %>%
   knitr::kable()
 ```
 
+In 2002, the states of CT, FL, NC were observed at 7 locations.
+
 ```{r}
 brfss_df %>% 
   distinct(locationabbr, locationdesc, year) %>% 
@@ -61,6 +70,11 @@ brfss_df %>%
   ) 
 ```
 
+The code below shows a “spaghetti plot” that shows the number of locations in each state from 2002 to 2010.
+We see that there was a sudden increase in the number of locations for one of the states. The number of locations for majority of the states remained stable. 
+
+Making a table showing, for the years 2002, 2006, and 2010, the mean and standard deviation of the proportion of “Excellent” responses across locations in NY State.
+
 ```{r}
 brfss_df %>% 
   filter(year %in% c(2002, 2006, 2010) & locationabbr == "NY") %>% 
@@ -72,6 +86,8 @@ brfss_df %>%
              sd = sd(excellent)) %>% 
   knitr::kable()
 ```
+
+In the table, we see that the mean for proportion of excellent for the 2006 and 2010 are very similar and worse than 2002. The standard deviation are not very different for the years of 2002 and 2006. 
 
 For each year and state, I'm computing the average proportion in each response category 
 and taking the average across locations in a state. Then making five-panel plot that shows, for each response category separately, the distribution of these state-level averages over time.
@@ -93,6 +109,8 @@ brfss_df %>%
   facet_grid(~mean_variable) 
 ```
 
+From the spagetti plot, we see that across the years, the highest mean is for the proportion of very good. The lowest mean is for the proportion of poor.
+
 ##Problem 2
 
 Loading instacart dataset
@@ -101,8 +119,11 @@ Loading instacart dataset
 data("instacart")
 ```
 
-Finding the total number of aisles there are, and which aisles most items ordered from
+##### Short description of the dataset
 
+The dataset contains `r nrow(instacart)` observations and `r ncol(instacart)` variables. The variable order_id is a unique identifier of the orders that have been made. We see that there are `r nrow(distinct(instacart, order_id))` unique orders. Variables department_name, product_name, and aisle have their corresponding unique identifiers. There are variables that describe time as well. order_dow represents the day of the week the order was made and the order_hour_of_day represents the time the hour the day. There are `r nrow(distinct(instacard, user_id))` unique customers. 
+
+#### Finding the total number of aisles there are, and which aisles most items ordered from
 
 ```{r}
 instacart %>% 
@@ -114,10 +135,14 @@ instacart %>%
   summarise(number = n()) %>% 
   ungroup() %>% 
   top_n(5, number) %>% 
-  arrange(desc(number))
+  arrange(desc(number)) %>% 
+  knitr::kable()
 ```
 
-Making a plot to show the number of items ordered in each aisle. 
+We see that there are `r pull(count(distinct(instacart, aisle_id)))` aisles. 
+In the table above, we see that the top five most popular aisles with the top being fresh vegetables aisles. 
+
+Here, I'm making a plot to show the number of items ordered in each aisle. 
 
 ```{r}
 instacart %>% 
@@ -137,6 +162,8 @@ instacart %>%
   )
 ```
 
+Again from the plot we see that fresh vegetables aisle is where the most orders come from. 
+
 I'm making a table to show the most popular item in aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”
 
 ```{r}
@@ -145,18 +172,30 @@ instacart %>%
   filter( aisle == "baking ingredients" | aisle == "dog food care" | aisle == "packaged vegetables fruits") %>% 
   group_by(aisle, product_name) %>% 
   summarise(number = n()) %>% 
-  top_n(5, number) %>% 
-  arrange(desc(number))
+  top_n(1, number) %>% 
+  arrange(desc(number)) %>% 
+  knitr::kable()
 ```
 
-Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are 
+The table show the top items for each of those aisles.
+
+Next, I am making a  table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are 
 ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
 
 ```{r}
 instacart %>% 
-  filter(product_name == "Pink Lady Apples") %>% 
+  filter(product_name == "Pink Lady Apples" ) %>% 
   group_by(order_dow, product_name) %>% 
-  summarise(mean_hour = mean(order_hour_of_day))
+  summarise(mean_hour = mean(order_hour_of_day)) %>% 
+  spread(key = product_name, value = mean_hour) %>% 
+  knitr::kable()
+
+instacart %>% 
+  filter(product_name == "Coffee Ice Cream" ) %>% 
+  group_by(order_dow, product_name) %>% 
+  summarise(mean_hour = mean(order_hour_of_day)) %>% 
+  spread(key = product_name, value = mean_hour) %>% 
+  knitr::kable()
 ```
 
 ## Problem 3
@@ -176,6 +215,8 @@ noaa_df = ny_noaa %>%
          tmax = as.numeric(tmax))
 
 ```
+
+To that end, write a short description of the dataset, noting the size and structure of the data, describing some key variables, and indicating the extent to which missing data is an issue. Then, do or answer the following (commenting on the results of each):
 
 Make a two-panel plot showing the average max temperature in January and in July in each station across years. Is there any observable / interpretable structure? Any outliers?
 
