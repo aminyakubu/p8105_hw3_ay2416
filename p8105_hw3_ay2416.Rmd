@@ -112,7 +112,7 @@ brfss_df %>%
 
 From the spagetti plot, we see that across the years, the highest mean is for the proportion of very good. The lowest mean is for the proportion of poor.
 
-##Problem 2
+## Problem 2
 
 Loading instacart dataset
 
@@ -208,7 +208,6 @@ noaa_df = ny_noaa %>%
          tmax = (as.numeric(tmax))/10,
          tmin = (as.numeric(tmin))/10,
          prcp = prcp/10)
-    
 ```
 
 The dataset contains `r nrow(noaa_df)` observations and `r ncol(noaa_df)` variables. The dataset has variables that contain information on precipitation (prcp), maximum and minimum temperature (tmax and tmin) and snow fall(snow) and snow depth (snwd). There are `r nrow(distinct(noaa_df, id))` unique stations recording various weather information from 1981 to 2010.
@@ -261,14 +260,25 @@ I'm making a two-panel plot showing (i) tmax vs tmin for the full dataset (note 
 ```{r}
 my_hex = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
   geom_hex(aes()) +
-  theme(legend.position = "left")
+  theme(legend.position = "left") + 
+  labs(
+    x = "Minimum temperature (C)",
+    y = "Maximum temperature (C)",
+    title = "Hexagonal heatmap showing the distribution of maximum and minimum temperatures",
+    caption = "NOAA 2017"
+  )
         
 my_boxes = noaa_df %>% 
   filter(snow > 0 & snow < 100) %>% 
   ggplot(aes(x = year, y = snow, fill = year)) +
   geom_boxplot(alpha = 0.3) +
   theme(legend.position = "none", 
-        axis.text.x = element_text(angle = 80, hjust = 1, size = 8))
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + 
+  labs(
+    x = "Year",
+    y = "Snowfall (mm)",
+    title = "Boxplot showing average distribution of snowfall per year"
+  )
 
 my_hex / my_boxes
 ```
