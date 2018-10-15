@@ -37,7 +37,6 @@ Some data cleaning
 ```{r}
 brfss_df = janitor::clean_names(dat = brfss_smart2010) %>% 
   filter(topic == "Overall Health") %>% 
-  select(-(class:question), -sample_size, -(confidence_limit_low:geo_location)) %>% 
   mutate(response = forcats::fct_relevel(response, c("Excellent", "Very good", "Good", "Fair", "Poor")))
 ```
 
@@ -83,8 +82,8 @@ brfss_df %>%
   janitor::clean_names() %>% 
   group_by(locationabbr, year) %>% 
   summarise( n = n(),
-             mean = mean(excellent),
-             sd = sd(excellent)) %>% 
+             mean = mean(excellent, na.rm = TRUE),
+             sd = sd(excellent, na.rm = TRUE)) %>% 
   knitr::kable()
 ```
 
