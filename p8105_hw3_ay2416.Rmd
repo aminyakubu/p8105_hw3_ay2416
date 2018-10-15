@@ -62,9 +62,9 @@ brfss_df %>%
   summarise(number = n()) %>% 
   ggplot(aes(x = year, y = number, color = locationabbr)) +
   geom_line() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "none") +
   labs(
-    title = "Spagetti plot",
+    title = "Spagetti plot showing the distribution of 50 US states",
     x = "Year",
     y = "Number of locations observed",
     caption = "BRFSS 2010 data"
